@@ -6,68 +6,80 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:02:34 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/19 12:54:56 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/20 17:24:35 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push-swap.h"
 
-
-void sortarray3(int argc, char **argv)
+int sortarray3(t_node **head, t_node *headB, bool printsort) //
 {
-	t_node *head;
 	int nb_movements;
-		
-	nb_movements = 0;
-	head = NULL;
-	for(int i = 0; i < argc - 1; i++)
-	 	insert_at_head(&head, creat_new_node(ft_atoi(argv[i + 1])));
 
-	while (checkifsorted(head) == false)
+	nb_movements = 0;
+	while (checkifsorted(*head) == false)
 	{
-		if (head->value > head->next->value)
-		{
-			printf("sa \n");
-			sa(head);
-		}
-		else if (head->value < head->next->value)
-		{
-			printf("rra \n");
-			rra(&head);
-		}
-		nb_movements++;
+		if ((*head)->next->next != NULL && (*head)->value > (*head)->next->value && (*head)->value > (*head)->next->next->value)
+			nb_movements += ra(head, headB);
+		else if ((*head)->value > (*head)->next->value)
+			nb_movements += sa(*head, headB);
+		else if ((*head)->value < (*head)->next->value)
+			nb_movements += rra(head, headB);
 	}
-	printchained(head);
-	if(checkifsorted(head))
+	if (printsort)
 		printf("Sorted. \nNombres d'actions : %d", nb_movements);
+	return (nb_movements);
 }
 
-void sortarray5(int argc, char **argv)
+void sortarray5(t_node *headA, t_node *headB)
 {
-	t_node *head;
 	int nb_movements;
-		
+	int middle;
+	
+	middle = sizeofchainedlist(headA) / 2; // assume for now 
 	nb_movements = 0;
-	head = NULL;
-	for(int i = 0; i < argc - 1; i++)
-	 	insert_at_head(&head, creat_new_node(ft_atoi(argv[i + 1])));
-
-	while (checkifsorted(head) == false)
+	while (sizeofchainedlist(headB) != middle)
 	{
-
-
-		
+		if (headA->value <= middle)
+		nb_movements +=	pb(&headA, &headB);
+		else
+			nb_movements += ra(&headA, headB);
 	}
-
-	printchained(head);
+	nb_movements += sortarray3(&headA, headB, false);															// peut rajouter un ss ici
+	nb_movements += sortarray3forBinverser(&headB, headA, false);
+	nb_movements += pa(&headA, &headB);
+	nb_movements += pa(&headA, &headB);
+	nb_movements += pa(&headA, &headB);
+	
+	if (checkifsorted(headA))
+		printf("Sorted. \nNombres d'actions : %d", nb_movements);
+	else
+		printf("error");
 }
 
 void sortarray(int argc, char **argv)
 {
-	if (argc - 1 <= 3)
-		sortarray3(argc ,argv);	
-	else if (argc - 1 <= 5 &&  argc - 1 >= 4)
-		sortarray5(argc, argv);
-	
-	
+	t_node *headA;
+	t_node *headB;
+
+	headA = NULL;
+	headB = NULL;
+
+	printf("Init A and B \n");
+	for (int i = 0; i < argc - 1; i++)
+		insert_at_head(&headA, creat_new_node(ft_atoi(argv[i + 1])));
+
+	printchainedboth(headA, headB);
+	if (!checkifsorted(headA))
+	{
+
+		if (argc - 1 <= 3)
+			sortarray3(&headA, headB, true);
+		else if (argc - 1 <= 6)
+			sortarray5(headA, headB);
+		else
+			return;
+	}
+	else
+		printf("Sorted. \nNombres d'actions : %d", 0);
 }

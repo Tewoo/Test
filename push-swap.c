@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:15:27 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/19 10:25:57 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:14:56 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int main(int argc, char **argv)
 {
 	
+	if (argc == 1)
+		return(printf("aucun arguement."));
 	sortarray(argc, argv);
 
 	return (0);

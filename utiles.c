@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:11:24 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/19 12:34:29 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/20 17:13:22 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,37 @@ void printchained (t_node *head)
 	}
 	while (temp != NULL)
 	{
-		printf("%d \n", temp->value);
+		printf("\t%d\n", temp->value);
 		temp = temp->next;
 	}
 }
 
-void printchainedboth(t_node *head1, t_node *head2)
+void printchainedboth(t_node *head1, t_node *head2) // a improve >;-)
 {
-	printchained(head1);
-	printf("----------------------- \nSTACK A \n\n");
-	printchained(head2);
-	printf("----------------------- \nSTACK B \n\n");
+	t_node *temp;
+	t_node *temp2;
+	
+	temp = head1;
+	temp2 = head2;
+	while (temp != NULL || temp2 != NULL)
+	{		
+		printf("\t\t");
+		if (temp != NULL)
+		{
+			printf("%d", temp->value);
+			temp = temp->next;
+		}
+		printf("\t\t\t");
+		if (temp2 != NULL)
+		{
+			printf("%d", temp2->value);
+			temp2 = temp2->next;
+		}
+		
+		printf("\n");
+	}
+	printf("--------------- A \t--------------- B\n");
+	printf("- - - - - - - - - - - - - - - - - - - - -\n");
 }
 
 t_node *creat_new_node(int value)
@@ -107,4 +127,64 @@ bool checkifsorted(t_node *head)
 		tmp = tmp->next;	
 	}
 	return (true);
+}
+bool checkifNOTsorted(t_node *head)
+{
+	t_node *tmp;
+	
+	tmp = head;
+	while (tmp->next != NULL)
+	{
+		if (tmp->value < tmp->next->value)
+			return (false);
+		tmp = tmp->next;	
+	}
+	return (true);
+}
+
+int biggestNumber (t_node *headA)
+{
+	t_node *tmp;
+	int value;
+
+	value = 0;
+	tmp = headA;
+	while (tmp != NULL)
+	{
+		if (tmp->value > value)
+			value = tmp->value;
+		tmp = tmp->next;
+	}	
+	return (value);
+}
+
+int smallestNumber (t_node *headA)
+{
+	t_node *tmp;
+	int value;
+
+	value = 2147483647;
+	tmp = headA;
+	while (tmp != NULL)
+	{
+		if (tmp->value < value)
+			value = tmp->value;
+		tmp = tmp->next;
+	}	
+	return (value);
+}
+
+int sizeofchainedlist (t_node *headA)
+{
+	t_node *tmp;
+	int value;
+
+	value = 0;
+	tmp = headA;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		value++;
+	}
+	return (value);
 }

@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actionsA.c                                         :+:      :+:    :+:   */
+/*   actionsB.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 10:09:12 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/20 11:09:47 by jmorneau         ###   ########.fr       */
+/*   Created: 2022/07/20 11:03:16 by jmorneau          #+#    #+#             */
+/*   Updated: 2022/07/20 14:15:45 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push-swap.h"
 
-int sa(t_node *head, t_node *headB)
+int sb(t_node *head, t_node *headB)
 {
-	printf ("sa \n");
+	printf ("sb \n");
 	int first = head->value;
 	head->value = head->next->value;
 	head->next->value = first;
-	printchainedboth(head, headB);
+	printchainedboth(headB, head);
 	return(1);
 }
 
-int ra(t_node **head, t_node *headB)
+int rb(t_node **head, t_node *headB)
 {
 	t_node *tmp = *head;
 	t_node *first = *head;
 
-	printf ("ra \n");		
+	printf ("rb \n");		
 	*head = (*head)->next;
 	while(tmp != NULL)
 	{
@@ -39,16 +39,16 @@ int ra(t_node **head, t_node *headB)
 		}
 		tmp = tmp->next;
 	}
-	printchainedboth(*head, headB);
+	printchainedboth(headB, *head);
 	return(1);
 }
 
-int rra(t_node **head, t_node *headB)
+int rrb(t_node **head, t_node *headB)
 {
 	t_node *tmp = *head;
 	t_node *last = NULL;
 		
-	printf ("rra \n");		
+	printf ("rrb \n");		
 	while(tmp != NULL)
 	{
 		if (tmp->next->next == NULL)
@@ -62,17 +62,17 @@ int rra(t_node **head, t_node *headB)
 	}
 	tmp->next = *head;
 	*head = tmp;
-	printchainedboth(*head, headB);
+	printchainedboth(headB, *head);
 	return(1);	
 }
 
-int pb(t_node **head1, t_node **head2)
+int pa(t_node **head2, t_node **head1)
 {
-	printf ("pb \n");		
+	printf ("pa \n");		
 	t_node *tmp = *head1;
 	*head1 = (*head1)->next;
 	tmp->next = *head2;
 	*head2 = tmp;
-	printchainedboth(*head1, *head2);
+	printchainedboth(*head2, *head1);
 	return (1);
 }
