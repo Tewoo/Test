@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:11:24 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/20 17:13:22 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:16:50 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,3 +188,18 @@ int sizeofchainedlist (t_node *headA)
 	}
 	return (value);
 }
+
+void freehead(t_node **head)
+{
+	t_node *tmp;
+	
+	while (*head != NULL)
+	{
+		tmp = *head;
+		*head = (*head)->next;
+		free(tmp);
+	}
+}
+
+// 123
+// 312 - 

@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:04:00 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/20 17:13:53 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:13:36 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ int rb(t_node **head, t_node *headB);
 int rrb(t_node **head, t_node *headB);
 int pa(t_node **head1, t_node **head2);
 
+int ss(t_node *head, t_node *headB, int printss);
+int rr(t_node **head, t_node **headB, int printss);
+int rrr(t_node **head, t_node **headB, int printss);
+
 // UTILES
 
 void printchained (t_node *head);
@@ -51,3 +55,6 @@ int smallestNumber (t_node *headA);
 int sortarray3forBinverser(t_node **head, t_node *headB, bool printsort);
 int sizeofchainedlist (t_node *headA);
 bool checkifNOTsorted(t_node *head);
+int sortarray3(t_node **head, t_node *headB, bool printsort);
+int sortarray3test(t_node **headA, t_node **headB);
+void freehead(t_node **head);

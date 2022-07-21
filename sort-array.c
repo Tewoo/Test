@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:02:34 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/20 17:24:35 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:16:34 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void sortarray5(t_node *headA, t_node *headB)
 	int nb_movements;
 	int middle;
 	
-	middle = sizeofchainedlist(headA) / 2; // assume for now 
+	middle = sizeofchainedlist(headA) / 2; 
 	nb_movements = 0;
+	
 	while (sizeofchainedlist(headB) != middle)
 	{
 		if (headA->value <= middle)
@@ -45,19 +46,32 @@ void sortarray5(t_node *headA, t_node *headB)
 		else
 			nb_movements += ra(&headA, headB);
 	}
-	nb_movements += sortarray3(&headA, headB, false);															// peut rajouter un ss ici
-	nb_movements += sortarray3forBinverser(&headB, headA, false);
-	nb_movements += pa(&headA, &headB);
-	nb_movements += pa(&headA, &headB);
-	nb_movements += pa(&headA, &headB);
+	//nb_movements += sortarray3(&headA, headB, false);															
+	//nb_movements += sortarray3forBinverser(&headB, headA, false); // peut rajouter un ss ici
 	
+	nb_movements += sortarray3test(&headA, &headB);
+	nb_movements += pa(&headA, &headB);
+	nb_movements += pa(&headA, &headB);
+	nb_movements += pa(&headA, &headB);
+	// if (nb_movements > 12)
+	// 	printf("ERROR");
 	if (checkifsorted(headA))
 		printf("Sorted. \nNombres d'actions : %d", nb_movements);
 	else
 		printf("error");
 }
 
-void sortarray(int argc, char **argv)
+void test(t_node *headA, t_node *headB)
+{
+	pb(&headA, &headB);
+	pb(&headA, &headB);
+	pb(&headA, &headB);
+	pb(&headA, &headB);
+	rrr(&headA, &headB, 1);
+}
+
+void sortarray(int argc, char **argv) // void sortarray(int argc, char **argv)
+
 {
 	t_node *headA;
 	t_node *headB;
@@ -72,14 +86,14 @@ void sortarray(int argc, char **argv)
 	printchainedboth(headA, headB);
 	if (!checkifsorted(headA))
 	{
-
 		if (argc - 1 <= 3)
 			sortarray3(&headA, headB, true);
 		else if (argc - 1 <= 6)
 			sortarray5(headA, headB);
 		else
-			return;
+			test(headA, headB);
 	}
 	else
 		printf("Sorted. \nNombres d'actions : %d", 0);
+	freehead(&headA);
 }
