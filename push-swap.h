@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:04:00 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/21 18:13:36 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/23 13:30:22 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,6 @@ bool checkifNOTsorted(t_node *head);
 int sortarray3(t_node **head, t_node *headB, bool printsort);
 int sortarray3test(t_node **headA, t_node **headB);
 void freehead(t_node **head);
+int lastvalue (t_node **head);
+int middlevalue (t_node *headA);
+void sortarray100forB(t_node **headA, t_node **headB);

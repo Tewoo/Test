@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:11:24 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/21 18:16:50 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/22 17:23:19 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,5 +201,37 @@ void freehead(t_node **head)
 	}
 }
 
-// 123
-// 312 - 
+int lastvalue (t_node **head)
+{
+	t_node *tmp;
+
+	tmp = *head;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	return (tmp->value);
+}
+
+int middlevalue (t_node *headA)
+{
+	t_node *tmp;
+	int middlevalue = biggestNumber(headA);
+	int i = 0;
+	int ok = 1 + sizeofchainedlist(headA) / 2;
+	if (sizeofchainedlist(headA) % 2 == 1)
+		ok++;	
+
+	while (1) // 
+	{
+		tmp = headA;
+		while (tmp != NULL)
+		{
+			if (middlevalue == tmp->value)
+				i++;
+			tmp = tmp->next;
+		}
+		if (i == ok)
+			break ;
+		middlevalue--;
+	}
+	return (middlevalue); 
+}

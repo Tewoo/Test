@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:53:13 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/21 17:01:46 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/23 15:22:36 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,55 @@ int sortarray3test(t_node **headA, t_node **headB)
 		}
 	}
 	return (nb_movements);
+}
+
+void sortarray100forB(t_node **headA, t_node **headB)
+{
+	int nb_movements;
+	int middle;
+	int i;
+	int sizeofheadA;
+	
+	sizeofheadA = sizeofchainedlist(*headB) / 2;
+	i = 0;
+	middle = middlevalue(*headB); 
+	nb_movements = 0;
+
+
+
+	while (i != sizeofheadA + 1)
+	{
+		printf("%d", middle);
+		if ((*headB)->value > middle)
+		{
+			nb_movements +=	pa(headA, headB);
+			if ((*headA)->value > (*headA)->next->value)
+				sa(*headA, *headB);
+			i++;
+		}
+		else if (lastvalue(headA) > middle)
+			nb_movements += rrb(headB, *headA);
+		else
+			nb_movements += rb(headB, *headA);
+
+	}
+	sortarray3forBinverser(headB, *headA, false);
+	while (*headB != NULL)
+		pa(headA, headB);
+		
+
+	// while (*headB != NULL)
+	// {
+	// 	if ((*headB)->next == NULL)
+	// 	{
+	// 		pa(headA, headB) ;
+	// 		break ;
+	// 	}
+	// 	else if ((*headB)->next->next != NULL && (*headB)->value > (*headB)->next->value && (*headB)->value < (*headB)->next->next->value)
+	// 		rb(headB, *headA);
+	// 	else if ((*headB)->value < (*headB)->next->value)
+	// 		sb(*headB, *headA);
+	// 	else
+	// 		pa(headA, headB);
+	// }	
 }

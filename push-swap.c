@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 19:15:27 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/21 18:14:49 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/22 17:28:54 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int main(int argc, char **argv)
 {
 
 	sortarray(argc, argv);
-
     return 0;
 }
 
