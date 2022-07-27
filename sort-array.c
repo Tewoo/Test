@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:02:34 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/23 15:12:06 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:18:31 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,45 +65,20 @@ void sortarray5(t_node *headA, t_node *headB)
 
 void sortarray100(t_node **headA, t_node **headB)
 {
-	static int nb_movements;
-	int middle;
-	int i;
-	int sizeofheadA;
+	int nb_movements;
+	int sizeofheadA = sizeofchainedlist(*headA);
 	
-	sizeofheadA = sizeofchainedlist(*headA) / 2;
-	i = 0;
-	middle = middlevalue(*headA); 
 	nb_movements = 0;
-	while (i != sizeofheadA && sizeofchainedlist(*headA) > 3)
-	{
-		if ((*headA)->value <= middle)
-		{
-			nb_movements +=	pb(headA, headB);
-			i++;
-		}
-		else if (lastvalue(headA) <= middle)
-			nb_movements += rra(headA, *headB);
-		else
-			nb_movements += ra(headA, *headB);
-	}
-	if (sizeofchainedlist(*headA) > 3)
-		sortarray100(headA, headB);
-	else
-	{
-		sortarray3(headA, *headB, false);
-		sortarray100forB(headA, headB);
-		
-		if (checkifsorted(*headA))
-			printf("sorted");
-			
-
-		//if (checkifsorted(*headA) && *headB == NULL) //
-	}
 	
+	while (*headA != NULL)
+		nb_movements += hold_first(headA, headB, sizeofheadA, calcluechunck(headA, sizeofheadA));
+	while (*headB != NULL)
+		nb_movements +=	pa(headA, headB);
+//	if (checkifsorted(*headA))
+		printf("Sorted. \n%d", nb_movements);
 }
 
 void sortarray(int argc, char **argv)
-
 {
 	t_node *headA;
 	t_node *headB;
@@ -123,6 +98,8 @@ void sortarray(int argc, char **argv)
 			sortarray5(headA, headB);
 		else if (argc - 1 <= 100)
 			sortarray100(&headA, &headB);
+		else
+			printf("fock you");
 	}
 	else
 		printf("Sorted. \nNombres d'actions : %d", 0);

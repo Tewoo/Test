@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:11:24 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/22 17:23:19 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:13:50 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,4 +234,25 @@ int middlevalue (t_node *headA)
 		middlevalue--;
 	}
 	return (middlevalue); 
+}
+
+int calcluechunck(t_node **headA, int sizeofheadA)
+{
+	int j = (sizeofheadA / 5);
+	int i = 1;
+	int value = smallestNumber(*headA);
+	t_node *tmp; 
+
+	while (i < j)
+	{
+		tmp = *headA;
+		while (tmp != NULL)
+		{
+			if (value == tmp->value)
+				i++;
+			tmp = tmp->next;
+		}
+		value++;
+	}
+	return (value);
 }

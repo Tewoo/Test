@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:53:13 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/23 15:22:36 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:13:28 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,53 +129,141 @@ int sortarray3test(t_node **headA, t_node **headB)
 	return (nb_movements);
 }
 
-void sortarray100forB(t_node **headA, t_node **headB)
+int sortarray100_2(t_node **headA, t_node **headB)
 {
 	int nb_movements;
 	int middle;
 	int i;
 	int sizeofheadA;
-	
-	sizeofheadA = sizeofchainedlist(*headB) / 2;
+
+	sizeofheadA = sizeofchainedlist(*headA) / 2;
 	i = 0;
-	middle = middlevalue(*headB); 
+	middle = middlevalue(*headA);
 	nb_movements = 0;
 
-
-
-	while (i != sizeofheadA + 1)
+	while (sizeofchainedlist(*headA) != sizeofheadA + 1)
 	{
-		printf("%d", middle);
-		if ((*headB)->value > middle)
+		if ((*headA)->value <= middle)
+			nb_movements += pb(headA, headB);
+		else
+			nb_movements += ra(headA, *headB);
+	}
+	return (nb_movements);
+}
+
+int sortarraybychunk(t_node **headA, t_node **headB, int i)
+{
+	int nb_movements;
+
+	nb_movements = 0;
+	while ((*headB)->next != NULL && i > 0)
+	{
+
+		if ((*headB)->next->value == biggestNumber(*headB)) // biggest number par chunk // ra + 1 ; rra - 1
+			nb_movements += sb(*headB, *headA);
+		else if (lastvalue(headB) == biggestNumber(*headB))
 		{
-			nb_movements +=	pa(headA, headB);
+			nb_movements += rrb(headB, *headA);
+			i--;
+		}
+		else if ((*headB)->value == biggestNumber(*headB))
+		{
+			nb_movements += pa(headA, headB);
+			i--;
 			if ((*headA)->value > (*headA)->next->value)
-				sa(*headA, *headB);
+				nb_movements += sa(*headA, *headB);
+		}
+		else
+		{
+			nb_movements += rb(headB, *headA);
 			i++;
 		}
-		else if (lastvalue(headA) > middle)
-			nb_movements += rrb(headB, *headA);
-		else
-			nb_movements += rb(headB, *headA);
-
 	}
-	sortarray3forBinverser(headB, *headA, false);
-	while (*headB != NULL)
-		pa(headA, headB);
-		
+	if ((*headB)->next == NULL)
+		nb_movements += pa(headA, headB);
+	return (nb_movements);
+}
 
-	// while (*headB != NULL)
-	// {
-	// 	if ((*headB)->next == NULL)
-	// 	{
-	// 		pa(headA, headB) ;
-	// 		break ;
-	// 	}
-	// 	else if ((*headB)->next->next != NULL && (*headB)->value > (*headB)->next->value && (*headB)->value < (*headB)->next->next->value)
-	// 		rb(headB, *headA);
-	// 	else if ((*headB)->value < (*headB)->next->value)
-	// 		sb(*headB, *headA);
-	// 	else
-	// 		pa(headA, headB);
-	// }	
+int find_next(t_node **headA, t_node **headB, int i)
+{
+	int j = 0;
+	t_node *tmp = *headA;
+
+	while (tmp->value > i)
+	{
+		tmp = tmp->next;
+		j++;
+	}
+	return (j);
+}
+
+
+int sort_headB(t_node **headA, t_node **headB)
+{
+	int nb_movements = 0;
+
+	if (smallestNumber(*headA) < (*headB)->value)
+		rb(headB, *headA);
+	// else
+	// 	rrb(headB, *headA);
+	// if ((*headB)->next != NULL && (*headB)->value < (*headB)->next->value)
+	// 	nb_movements +=	sb(*headB, *headA);
+	
+	
+	return (nb_movements);
+
+}
+
+int hold_first(t_node **headA, t_node **headB, int taillelist, int nb_chunck)
+{
+	int i = 0;
+	int j;
+	int nb_movements = 0;
+	int nb_pa = 0;
+
+	while (i < (taillelist / 5))
+	{
+		j = 0;
+		if ((*headA)->value <= nb_chunck)
+		{
+			if (*headB != NULL &&  smallestNumber(*headB) > (*headA)->value)
+			{
+				nb_movements += pb(headA, headB); // pourrait faire une truc du genre i += pb et return (nb_mouvements + i)
+				nb_movements +=	rb(headB, *headA);
+			}
+			else
+				nb_movements += pb(headA, headB);
+			while (!checkifNOTsorted(*headB))
+			{
+				if ((*headB)->next != NULL && (*headB)->value < (*headB)->next->value)
+					nb_movements +=	sb(*headB, *headA);
+				if (!checkifNOTsorted(*headB))
+				{
+					nb_movements +=	pa(headA, headB);
+					nb_pa++;
+				}
+			}
+			while (nb_pa > 0)
+			{
+				nb_movements += pb(headA, headB);
+				nb_pa--;
+			}
+			i++;
+		}
+		else
+		{
+			j = find_next(headA, headB, nb_chunck);
+			if (j < taillelist / 2)
+			{
+				while (j-- > 0)
+					nb_movements += ra(headA, *headB);
+			}
+			else
+			{
+				while (j-- > 0)
+					nb_movements += rra(headA, *headB);
+			}
+		}
+	}
+	return (nb_movements);
 }

@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:04:00 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/23 13:30:22 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:14:01 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,8 @@ void freehead(t_node **head);
 int lastvalue (t_node **head);
 int middlevalue (t_node *headA);
 void sortarray100forB(t_node **headA, t_node **headB);
+int sortarray100_2(t_node **headA, t_node **headB);
+int calcluechunck(t_node **headA, int sizeofheadA);
+int sortarraybychunk(t_node **headA, t_node **headB, int i);
+int hold_first(t_node **headA, t_node **headB, int taillelist, int nb_chunck);
+int sort_headA(t_node **headA, t_node **headB);
