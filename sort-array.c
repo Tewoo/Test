@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:02:34 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/27 19:18:31 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/30 18:04:48 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,16 @@ void sortarray100(t_node **headA, t_node **headB)
 	
 	nb_movements = 0;
 	
-	while (*headA != NULL)
-		nb_movements += hold_first(headA, headB, sizeofheadA, calcluechunck(headA, sizeofheadA));
-	while (*headB != NULL)
-		nb_movements +=	pa(headA, headB);
+	//while (*headA != NULL)
+		nb_movements += hold_first(headA, headB, sizeofheadA);
+		
+//	while (*headB != NULL)
+	//	nb_movements += hold_seconde(headA, headB, sizeofheadA); // je pense que le calclu ne marchera pas sur des nombres aleatoirs
+		
+
+	//printf("%d", calcluechunck(headB, sizeofheadA) * 4);
+	//while (*headB != NULL)
+	//	nb_movements +=	pa(headA, headB);
 //	if (checkifsorted(*headA))
 		printf("Sorted. \n%d", nb_movements);
 }
@@ -96,10 +102,10 @@ void sortarray(int argc, char **argv)
 			sortarray3(&headA, headB, true);
 		else if (argc - 1 <= 6)
 			sortarray5(headA, headB);
-		else if (argc - 1 <= 100)
+		else //if (argc - 1 <= 100)
 			sortarray100(&headA, &headB);
-		else
-			printf("fock you");
+	//	else
+		//	printf("fock you");
 	}
 	else
 		printf("Sorted. \nNombres d'actions : %d", 0);

@@ -6,7 +6,7 @@
 /*   By: jmorneau <jmorneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 11:53:13 by jmorneau          #+#    #+#             */
-/*   Updated: 2022/07/27 19:13:28 by jmorneau         ###   ########.fr       */
+/*   Updated: 2022/07/30 18:37:30 by jmorneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int sortarraybychunk(t_node **headA, t_node **headB, int i)
 	return (nb_movements);
 }
 
-int find_next(t_node **headA, t_node **headB, int i)
+int find_next(t_node **headA, int i)
 {
 	int j = 0;
 	t_node *tmp = *headA;
@@ -197,71 +197,77 @@ int find_next(t_node **headA, t_node **headB, int i)
 	return (j);
 }
 
-
-int sort_headB(t_node **headA, t_node **headB)
+int find_next_number(t_node **headA)
 {
-	int nb_movements = 0;
+	int j = 0;
+	t_node *tmp = *headA;
 
-	if (smallestNumber(*headA) < (*headB)->value)
-		rb(headB, *headA);
-	// else
-	// 	rrb(headB, *headA);
-	// if ((*headB)->next != NULL && (*headB)->value < (*headB)->next->value)
-	// 	nb_movements +=	sb(*headB, *headA);
-	
-	
-	return (nb_movements);
-
+	while (tmp->value != biggestNumber(*headA))
+	{
+		tmp = tmp->next;
+		j++;
+	}
+	return (j);
 }
 
-int hold_first(t_node **headA, t_node **headB, int taillelist, int nb_chunck)
+int hold_first(t_node **headA, t_node **headB, int taillelist)
 {
 	int i = 0;
-	int j;
 	int nb_movements = 0;
-	int nb_pa = 0;
+	int max_number = calcluechunck(headA, taillelist);
 
+	
 	while (i < (taillelist / 5))
 	{
-		j = 0;
-		if ((*headA)->value <= nb_chunck)
+		printf("%d \n", max_number);
+		if ((*headA)->value <= max_number)
 		{
-			if (*headB != NULL &&  smallestNumber(*headB) > (*headA)->value)
-			{
-				nb_movements += pb(headA, headB); // pourrait faire une truc du genre i += pb et return (nb_mouvements + i)
-				nb_movements +=	rb(headB, *headA);
-			}
-			else
-				nb_movements += pb(headA, headB);
-			while (!checkifNOTsorted(*headB))
-			{
-				if ((*headB)->next != NULL && (*headB)->value < (*headB)->next->value)
-					nb_movements +=	sb(*headB, *headA);
-				if (!checkifNOTsorted(*headB))
-				{
-					nb_movements +=	pa(headA, headB);
-					nb_pa++;
-				}
-			}
-			while (nb_pa > 0)
-			{
-				nb_movements += pb(headA, headB);
-				nb_pa--;
-			}
+			nb_movements += pb(headA, headB);
 			i++;
 		}
 		else
 		{
-			j = find_next(headA, headB, nb_chunck);
-			if (j < taillelist / 2)
+			printf("%d < %d -- \n", find_next(headA, max_number), sizeofchainedlist(*headA) / 2);
+			if (find_next(headA, max_number) < sizeofchainedlist(*headA) / 2)
 			{
-				while (j-- > 0)
+				while ((*headA)->value > max_number)
 					nb_movements += ra(headA, *headB);
 			}
 			else
 			{
-				while (j-- > 0)
+				while ((*headA)->value > max_number)
 					nb_movements += rra(headA, *headB);
+			}
+		}
+	}
+	return (nb_movements);
+}
+
+int hold_seconde(t_node **headA, t_node **headB, int taillelist)
+{
+	int i = 0;
+	int j;
+	int nb_movements = 0;
+
+	while (i < (taillelist / 5))
+	{
+		if ((*headB)->value == biggestNumber(*headB))
+		{
+			nb_movements += pa(headA, headB);
+			i++;
+		}
+		else
+		{
+			j = find_next_number(headB);
+			if (j < sizeofchainedlist(*headB) / 2)
+			{
+				while ((*headB)-> value != biggestNumber(*headB))
+					nb_movements += rb(headB, *headA);
+			}
+			else
+			{
+				while ((*headB)-> value != biggestNumber(*headB))
+					nb_movements += rrb(headB, *headA);
 			}
 		}
 	}
